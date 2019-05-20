@@ -13,11 +13,7 @@ class Jokes extends Component {
 	}
 
 	async componentDidMount() {
-		let response = await axios.get(`https://icanhazdadjoke.com/search?limit=10`, {
-			headers: {
-				'Accept': 'application/json'
-			}
-		});
+		let response = await axios.get(`https://icanhazdadjoke.com/search?limit=10`, {headers: {"Accept": "application/json"}});
 		let responseJokes = response.data.results;
 		let jokes = responseJokes.map((joke) => ({ ...joke, score: 0 }));
 		this.setState({ jokes });
