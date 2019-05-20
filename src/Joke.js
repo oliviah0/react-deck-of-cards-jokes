@@ -4,8 +4,8 @@ import './Joke.css';
 class Joke extends Component {
   constructor(props) {
     super(props);
-		this.handleUpVote = this.handleUpVote.bind(this);
-		this.handleDownVote = this.handleDownVote.bind(this);
+    this.handleUpVote = this.handleUpVote.bind(this);
+    this.handleDownVote = this.handleDownVote.bind(this);
   }
 
   handleUpVote() {
@@ -19,10 +19,10 @@ class Joke extends Component {
   render() {
     return (
       <li className="Joke">
-        <b>Score: {this.props.score}</b>
-        <button className="Joke-upBtn" onClick={this.handleUpVote}> Up </button>
-        <button className="Joke-downBtn" onClick={this.handleDownVote}> Down </button>
-        {this.props.joke}
+        <i onClick={this.handleUpVote} class="far fa-arrow-alt-circle-up"></i>
+        <b> {this.props.score} </b>
+        <i onClick={this.handleDownVote} class="far fa-arrow-alt-circle-down"></i>
+        <span> {this.props.joke}</span>
         <br/>
       </li>
     );
