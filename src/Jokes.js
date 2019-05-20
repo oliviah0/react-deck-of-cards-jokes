@@ -3,6 +3,8 @@ import Joke from './Joke';
 import axios from 'axios';
 import './Jokes.css';
 import { NONAME } from 'dns';
+import loading from './loading.gif';
+
 
 class Jokes extends Component {
   constructor(props) {
@@ -16,9 +18,12 @@ class Jokes extends Component {
     this.getJokes = this.getJokes.bind(this);
   }
 
-  async componentDidMount() {
-    if (this.state.jokes.length === 0) return await this.getJokes();
-    this.setState({isLoading: false});
+  componentDidMount() {
+    setTimeout( () => {
+      if (this.state.jokes.length === 0) return this.getJokes();
+      this.setState({isLoading: false});
+
+    }, 2000);
   }
 
   componentDidUpdate() {
@@ -37,7 +42,6 @@ class Jokes extends Component {
     this.setState({ jokes, isLoading });
     // window.localStorage.setItem("jokes", JSON.stringify(this.state.jokes));
   }
-
 
   handleUpVote(id) {
     this.setState((st) => ({
@@ -71,13 +75,13 @@ class Jokes extends Component {
       </ul>
     );
     if(this.state.isLoading) {
-      data = <img src="./loading.gif" alt="loading"/>
+      data = <img src={loading} alt="loading"/>
     }
     return (
       
       <div className="Jokes">
         <h1>Parco's and Olivia's Jokes</h1>
-        {data}
+        <div>{data}</div>
         <button onClick={this.getJokes}>Generate New Joke List</button>
       </div>
     );

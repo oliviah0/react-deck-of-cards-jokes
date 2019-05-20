@@ -12,6 +12,7 @@ class Table extends Component {
       remaining: 52,
       drawnCards: []
     };
+   
     this.drawCard = this.drawCard.bind(this);
   }
 
@@ -19,6 +20,18 @@ class Table extends Component {
     let response = await axios.get(`https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1`);
     let deckId = response.data.deck_id;
     this.setState({ deckId });
+    
+    this.timerId = setInterval( () => {
+      if (this.state.remaining === 0) {
+        clearInterval(this.timerId);
+      } else {
+        this.drawCard();
+      }
+    }, 100);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerId);
   }
 
   async drawCard() {
@@ -29,6 +42,7 @@ class Table extends Component {
     drawnCards = [...drawnCards, currCard];
 
     this.setState({remaining, drawnCards });
+
   }
 
   render() {
